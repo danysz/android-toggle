@@ -21,7 +21,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewDebug;
 
-import com.github.angads25.toggle.interfaces.OnStateChangedListener;
 import com.github.angads25.toggle.interfaces.OnToggledListener;
 
 /**
@@ -59,8 +58,9 @@ public class ToggleableView extends View {
 
     /**
      * Simple constructor to use when creating a switch from code.
+     *
      * @param context The Context the switch is running in, through which it can
-     *        access the current theme, resources, etc.
+     *                access the current theme, resources, etc.
      */
     public ToggleableView(Context context) {
         super(context);
@@ -70,8 +70,8 @@ public class ToggleableView extends View {
      * Constructor that is called when inflating a switch from XML.
      *
      * @param context The Context the switch is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the switch.
+     *                access the current theme, resources, etc.
+     * @param attrs   The attributes of the XML tag that is inflating the switch.
      */
     public ToggleableView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -81,12 +81,12 @@ public class ToggleableView extends View {
      * Perform inflation from XML and apply a class-specific base style from a
      * theme attribute.
      *
-     * @param context The Context the switch is running in, through which it can
-     *        access the current theme, resources, etc.
-     * @param attrs The attributes of the XML tag that is inflating the switch.
+     * @param context      The Context the switch is running in, through which it can
+     *                     access the current theme, resources, etc.
+     * @param attrs        The attributes of the XML tag that is inflating the switch.
      * @param defStyleAttr An attribute in the current theme that contains a
-     *        reference to a style resource that supplies default values for
-     *        the switch. Can be 0 to not look for defaults.
+     *                     reference to a style resource that supplies default values for
+     *                     the switch. Can be 0 to not look for defaults.
      */
     public ToggleableView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -117,7 +117,8 @@ public class ToggleableView extends View {
      * @return True if this switch is enabled, false otherwise.
      */
     @ViewDebug.ExportedProperty
-    @Override public boolean isEnabled() {
+    @Override
+    public boolean isEnabled() {
         return enabled;
     }
 
@@ -127,7 +128,8 @@ public class ToggleableView extends View {
      *
      * @param enabled True if this view is enabled, false otherwise.
      */
-    @Override public void setEnabled(boolean enabled) {
+    @Override
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -136,7 +138,6 @@ public class ToggleableView extends View {
      * enabled, there won't be any event.
      *
      * @param onToggledListener The callback that will run
-     *
      * @see #setEnabled(boolean)
      */
     public void setOnToggledListener(OnToggledListener onToggledListener) {

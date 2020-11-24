@@ -17,7 +17,7 @@
 package com.github.angads25.toggledemo
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Created by Angad Singh on 14/07/18.

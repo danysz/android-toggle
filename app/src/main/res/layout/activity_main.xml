@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:background="?layoutBackground"
     android:orientation="vertical"
-    tools:context="com.github.angads25.toggledemo.MainActivity">
+    tools:context="com.github.toggledemo.MainActivity">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/switch_labeled"

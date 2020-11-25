@@ -1,4 +1,4 @@
-package com.github.angads25.toggledemo;
+package com.github.toggledemo;
 
 import junit.framework.Assert;
 
@@ -13,7 +13,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import com.github.angads25.toggle.widget.LabeledSwitch;
+import com.github.toggle.widget.LabeledSwitch;
 
 @RunWith(AndroidJUnit4.class)
 public class TestToggleable {

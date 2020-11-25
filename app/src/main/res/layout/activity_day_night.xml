@@ -24,7 +24,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/layoutBackground"
-    tools:context="com.github.angads25.toggledemo.DayNightActivity">
+    tools:context="com.github.toggledemo.DayNightActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <com.github.angads25.toggle.widget.DayNightSwitch
+        <com.github.toggle.widget.DayNightSwitch
             android:id="@+id/switch1"
             android:layout_width="120dp"
             android:layout_height="72dp"

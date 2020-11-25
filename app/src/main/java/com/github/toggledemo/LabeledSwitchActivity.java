@@ -1,4 +1,4 @@
-package com.github.angads25.toggledemo;
+package com.github.toggledemo;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.os.Handler;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.angads25.toggle.widget.LabeledSwitch;
+import com.github.toggle.widget.LabeledSwitch;
 
 import java.util.Random;
 import java.util.Timer;

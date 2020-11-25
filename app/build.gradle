@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion '30.0.2'
     defaultConfig {
-        applicationId "com.github.angads25.toggledemo"
+        applicationId "com.github.toggledemo"
         minSdkVersion 14
         targetSdkVersion 30
         versionCode 1

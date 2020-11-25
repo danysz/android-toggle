@@ -1,4 +1,4 @@
-package com.github.angads25.toggledemo;
+package com.github.toggledemo;
 
 import org.junit.Test;
 

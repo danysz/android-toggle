@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.angads25.toggle.model;
+package com.github.toggle.model;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewDebug;
 
-import com.github.angads25.toggle.interfaces.OnToggledListener;
+import com.github.toggle.interfaces.OnToggledListener;
 
 /**
  * <p>

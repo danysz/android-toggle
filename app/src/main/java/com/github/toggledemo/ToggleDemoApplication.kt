@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.angads25.toggledemo
+package com.github.toggledemo
 
 import android.app.Application
 

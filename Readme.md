@@ -14,9 +14,21 @@ Android Library for Custom Switches.
 
 ### Installation
 
-* Library is also Available in MavenCentral, So just put this in your app dependencies to use it:
-```gradle
-    implementation 'com.github.angads25:toggle:1.1.0'
+Add it in your root build.gradle at the end of repositories:
+```	
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	    }
+```
+Step 2. Add the dependency
+```
+
+dependencies {
+	        implementation 'com.github.shadygoneinsane:android-toggle:1.1.1'
+	    }
 ```
 
 ### Usage
@@ -51,7 +63,7 @@ Android Library for Custom Switches.
 
 * Labeled Switch | Designed by - [Shweta Gupta](https://dribbble.com/shwetagupta)
 
-![Labeled Switch](https://raw.githubusercontent.com/Angads25/android-toggle/release/screenshots/version%201/LabeledSwitch.png)
+![Labeled Switch](https://raw.githubusercontent.com/shadygoneinsane/android-toggle/release/screenshots/version%201/LabeledSwitch.png)![Labeled Switch](https://raw.githubusercontent.com/shadygoneinsane/android-toggle/release/screenshots/version%201/LabeledSwitch1.png)
 
 * Day Night Switch | Designed by - [Ramakrishna V](https://dribbble.com/RamakrishnaUX)
 

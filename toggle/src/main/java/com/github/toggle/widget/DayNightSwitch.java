@@ -174,7 +174,7 @@ public class DayNightSwitch extends ToggleableView {
                 canvas.drawRect(outerRadii, padding >>> 2, (width - outerRadii), height - (padding >>> 2), paint);
 
                 alpha = (int) (((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX)) * 255);
-                alpha = (alpha < 0 ? 0 : (alpha > 255 ? 255 : alpha));
+                alpha = (alpha < 0 ? 0 : (Math.min(alpha, 255)));
                 borderColor = Color.argb(alpha, Color.red(parentDarkOuter), Color.green(parentDarkOuter), Color.blue(parentDarkOuter));
                 paint.setColor(borderColor);
 
@@ -194,7 +194,7 @@ public class DayNightSwitch extends ToggleableView {
 
             int onColor;
             int alpha = (int) (((thumbBounds.centerX() - thumbOffCenterX) / (thumbOnCenterX - thumbOffCenterX)) * 255);
-            alpha = (alpha < 0 ? 0 : (alpha > 255 ? 255 : alpha));
+            alpha = (alpha < 0 ? 0 : (Math.min(alpha, 255)));
 
             if (isEnabled()) {
                 onColor = Color.argb(alpha, Color.red(parentInner), Color.green(parentInner), Color.blue(parentInner));
@@ -208,7 +208,7 @@ public class DayNightSwitch extends ToggleableView {
             canvas.drawRect(outerRadii, padding >>> 2, (width - outerRadii), height - (padding >>> 2), paint);
 
             alpha = (int) (((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX)) * 255);
-            alpha = (alpha < 0 ? 0 : (alpha > 255 ? 255 : alpha));
+            alpha = (alpha < 0 ? 0 : (Math.min(alpha, 255)));
 
             int offColor = Color.argb(alpha, Color.red(parentDarkInner), Color.green(parentDarkInner), Color.blue(parentDarkInner));
             paint.setColor(offColor);
@@ -220,7 +220,7 @@ public class DayNightSwitch extends ToggleableView {
 
         {
             int alpha = (int) (((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX)) * 255);
-            alpha = (alpha < 0 ? 0 : (alpha > 255 ? 255 : alpha));
+            alpha = (alpha < 0 ? 0 : (Math.min(alpha, 255)));
 
             int starColor = Color.argb(alpha, Color.red(stars), Color.green(stars), Color.blue(stars));
             paint.setColor(starColor);

@@ -1,14 +1,8 @@
 # Toggle
 Android Library for Custom Switches.
 
-### Developed by
-[Angad Singh](https://www.github.com/angads25) ([@angads25](https://www.twitter.com/angads25))
-
 ### Benchmark:
-[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![Build Status](https://travis-ci.org/Angads25/android-toggle.svg?branch=release)](https://travis-ci.org/Angads25/android-toggle)
-
-### Mentions:
-[![Download](https://api.bintray.com/packages/angads25/maven/Toggle/images/download.svg)](https://bintray.com/angads25/maven/Toggle/_latestVersion) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.angads25/toggle/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.angads25/toggle)
+[![jitpack](https://jitpack.io/v/shadygoneinsane/android-toggle.svg)](https://jitpack.io/#shadygoneinsane/android-toggle)
 
 ### Read all about internal classes and functions in the [wiki](https://github.com/Angads25/android-toggle/wiki).
 
@@ -27,7 +21,7 @@ Step 2. Add the dependency
 ```
 
 dependencies {
-	        implementation 'com.github.shadygoneinsane:android-toggle:1.1.1'
+	        implementation 'com.github.shadygoneinsane:android-toggle:1.1.02'
 	    }
 ```
 

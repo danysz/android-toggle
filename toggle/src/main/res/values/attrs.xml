@@ -2,23 +2,17 @@
 <resources>
     <declare-styleable name="Toggle">
 
-        <attr name="textOn" format="string" />
+        <attr name="colorThumbDisabled" format="color" />
 
-        <attr name="textOff" format="string" />
+        <attr name="colorThumbEnabled" format="color" />
 
-        <attr name="colorOff" format="color" />
+        <attr name="colorTrackDisabled" format="color" />
 
-        <attr name="colorOn" format="color" />
-
-        <attr name="colorBorder" format="color" />
-
-        <attr name="colorDisabled" format="color" />
+        <attr name="colorTrackEnabled" format="color" />
 
         <attr name="on" format="boolean" />
 
         <attr name="noBackground" format="boolean" />
-
-        <attr name="android:textSize" />
 
         <attr name="android:enabled" />
     </declare-styleable>

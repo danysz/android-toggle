@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Angad Singh
+ * Copyright (C) 2022 Vikesh Dass
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,24 +27,18 @@ import com.github.toggle.R
 import com.github.toggle.model.ToggleableView
 
 /**
- * Created by Angad Singh on 27/1/18.
- *
- * Modified by vikesh Dass on 15-11-2020
- *
+ * Created by vikesh Dass on 20/01/2022
  */
 class LabeledSwitch : ToggleableView {
     private var padding = 0
-    private var colorOn = 0
-    private var colorOff = 0
-    private var colorBorder = 0
-    private var colorDisabled = 0
-    private var textSize = 0
+    private var colorTrackOff = 0
+    private var colorTrackOn = 0
+    private var colorThumbOff = 0
+    private var colorThumbOn = 0
     private var outerRadii = 0
     private var thumbRadii = 0
     private lateinit var paint: Paint
     private var startTime: Long = 0
-    private lateinit var labelOn: String
-    private lateinit var labelOff: String
     private lateinit var thumbBounds: RectF
     private lateinit var leftBgArc: RectF
     private lateinit var rightBgArc: RectF
@@ -52,10 +46,8 @@ class LabeledSwitch : ToggleableView {
     private lateinit var rightFgArc: RectF
 
     private lateinit var outlineFgArc: RectF
-    private lateinit var strokePaint: Paint
     private var hasTransparentBackground: Boolean = false
 
-    private var typeface: Typeface? = null
     private var thumbOnCenterX = 0f
     private var thumbOffCenterX = 0f
 
@@ -93,7 +85,7 @@ class LabeledSwitch : ToggleableView {
      * the switch. Can be 0 to not look for defaults.
      */
     constructor(context: Context?, attrs: AttributeSet, defStyleAttr: Int) : super(
-            context, attrs, defStyleAttr
+        context, attrs, defStyleAttr
     ) {
         initView()
         initProperties(attrs)
@@ -101,12 +93,7 @@ class LabeledSwitch : ToggleableView {
 
     private fun initView() {
         isOn = false
-        labelOn = context.getString(R.string.label_on)
-        labelOff = context.getString(R.string.label_off)
         enabled = true
-        textSize = (12f * resources.displayMetrics.scaledDensity).toInt()
-        colorOn = ContextCompat.getColor(context, R.color.colorAccent)
-        colorBorder = colorOn
         paint = Paint()
         paint.isAntiAlias = true
         leftBgArc = RectF()
@@ -115,13 +102,10 @@ class LabeledSwitch : ToggleableView {
         rightFgArc = RectF()
         thumbBounds = RectF()
         outlineFgArc = RectF()
-        colorOff = ContextCompat.getColor(context, android.R.color.white)
-        colorDisabled = ContextCompat.getColor(context, R.color.colorDisabled)
-        strokePaint = Paint().apply {
-            color = colorBorder
-            style = Paint.Style.STROKE
-            strokeWidth = 4f
-        }
+        colorTrackOff = ContextCompat.getColor(context, R.color.colorTrackDisabled)
+        colorTrackOn = ContextCompat.getColor(context, R.color.colorTrackEnabled)
+        colorThumbOff = ContextCompat.getColor(context, R.color.colorThumbDisabled)
+        colorThumbOn = ContextCompat.getColor(context, R.color.colorThumbEnabled)
     }
 
     private fun initProperties(attrs: AttributeSet) {
@@ -130,47 +114,39 @@ class LabeledSwitch : ToggleableView {
             when (attr.getIndex(i)) {
                 R.styleable.Toggle_noBackground -> {
                     hasTransparentBackground =
-                            attr.getBoolean(R.styleable.Toggle_noBackground, false)
+                        attr.getBoolean(R.styleable.Toggle_noBackground, false)
                 }
                 R.styleable.Toggle_on -> {
                     isOn = attr.getBoolean(R.styleable.Toggle_on, false)
                 }
-                R.styleable.Toggle_colorOff -> {
-                    colorOff =
-                            attr.getColor(
-                                    R.styleable.Toggle_colorOff,
-                                    ContextCompat.getColor(context, android.R.color.white)
-                            )
+
+                R.styleable.Toggle_colorThumbDisabled -> {
+                    colorThumbOff =
+                        attr.getColor(
+                            R.styleable.Toggle_colorThumbDisabled,
+                            ContextCompat.getColor(context, R.color.colorThumbDisabled)
+                        )
                 }
-                R.styleable.Toggle_colorBorder -> {
-                    val accentColor: Int = ContextCompat.getColor(context, R.color.colorAccent)
-                    colorBorder = attr.getColor(R.styleable.Toggle_colorBorder, accentColor)
-                    strokePaint.color = colorBorder
+                R.styleable.Toggle_colorThumbEnabled -> {
+                    colorThumbOn =
+                        attr.getColor(
+                            R.styleable.Toggle_colorThumbEnabled,
+                            ContextCompat.getColor(context, R.color.colorThumbEnabled)
+                        )
                 }
-                R.styleable.Toggle_colorOn -> {
-                    val accentColor: Int = ContextCompat.getColor(context, R.color.colorAccent)
-                    colorOn = attr.getColor(R.styleable.Toggle_colorOn, accentColor)
+                R.styleable.Toggle_colorTrackDisabled -> {
+                    colorTrackOff =
+                        attr.getColor(
+                            R.styleable.Toggle_colorTrackDisabled,
+                            ContextCompat.getColor(context, R.color.colorTrackDisabled)
+                        )
                 }
-                R.styleable.Toggle_colorDisabled -> {
-                    colorDisabled =
-                            attr.getColor(
-                                    R.styleable.Toggle_colorOff,
-                                    ContextCompat.getColor(context, R.color.colorDisabled)
-                            )
-                }
-                R.styleable.Toggle_textOff -> {
-                    labelOff = attr.getString(R.styleable.Toggle_textOff)!!
-                }
-                R.styleable.Toggle_textOn -> {
-                    labelOn = attr.getString(R.styleable.Toggle_textOn)!!
-                }
-                R.styleable.Toggle_android_textSize -> {
-                    val defaultTextSize = (12f * resources.displayMetrics.scaledDensity).toInt()
-                    textSize =
-                            attr.getDimensionPixelSize(
-                                    R.styleable.Toggle_android_textSize,
-                                    defaultTextSize
-                            )
+                R.styleable.Toggle_colorTrackEnabled -> {
+                    colorTrackOn =
+                        attr.getColor(
+                            R.styleable.Toggle_colorTrackEnabled,
+                            ContextCompat.getColor(context, R.color.colorTrackDisabled)
+                        )
                 }
                 R.styleable.Toggle_android_enabled -> {
                     enabled = attr.getBoolean(R.styleable.Toggle_android_enabled, false)
@@ -181,24 +157,21 @@ class LabeledSwitch : ToggleableView {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        paint.textSize = textSize.toFloat()
-
         //Drawing Switch background here
-        drawSwitchBackground(canvas, paint)
-
-        //Drawing Switch Labels here
-        drawSwitchLabels(canvas, paint)
+        drawTrack(canvas, paint)
 
         //Drawing Switch Thumb here
-        drawSwitchThumb(canvas, paint)
+        drawThumb(canvas, paint)
     }
 
-    private fun drawSwitchBackground(canvas: Canvas, paint: Paint) {
+    //Drawing Switch background i.e the track
+    //Read more about anatomy here : https://material.io/components/switches/android#anatomy-and-key-properties
+    private fun drawTrack(canvas: Canvas, paint: Paint) {
         //for center part of rectangle
-        if (isEnabled) {
-            paint.color = colorBorder
+        if (isOn) {
+            paint.color = colorTrackOn
         } else {
-            paint.color = colorDisabled
+            paint.color = colorTrackOff
         }
         if (!hasTransparentBackground) {
             //draws left and right part of wedge
@@ -207,29 +180,34 @@ class LabeledSwitch : ToggleableView {
 
             //for center rectangle part of switch/view
             canvas.drawRect(
-                    outerRadii.toFloat(), 0f,
-                    (width - outerRadii).toFloat(), height.toFloat(), paint
+                outerRadii.toFloat(), 0f,
+                (width - outerRadii).toFloat(), height.toFloat(), paint
             )
 
-            paint.color = colorOff
+            paint.color = colorTrackOff
             canvas.drawArc(leftFgArc, 90f, 180f, false, paint)
             canvas.drawArc(rightFgArc, 90f, -180f, false, paint)
             canvas.drawRect(
-                    outerRadii.toFloat(), (padding / 10).toFloat(),
-                    (width - outerRadii).toFloat(), (height - padding / 10).toFloat(), paint
+                outerRadii.toFloat(), (padding / 10).toFloat(),
+                (width - outerRadii).toFloat(), (height - padding / 10).toFloat(), paint
             )
         }
 
         //For drawing for turned on state
         var alpha =
-                ((thumbBounds.centerX() - thumbOffCenterX) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
+            ((thumbBounds.centerX() - thumbOffCenterX) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
         alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
         val onColor: Int = if (isEnabled) {
-            Color.argb(alpha, Color.red(colorOn), Color.green(colorOn), Color.blue(colorOn))
+            Color.argb(
+                alpha,
+                Color.red(colorTrackOn),
+                Color.green(colorTrackOn),
+                Color.blue(colorTrackOn)
+            )
         } else {
             Color.argb(
-                    alpha, Color.red(colorDisabled),
-                    Color.green(colorDisabled), Color.blue(colorDisabled)
+                alpha, Color.red(colorTrackOff),
+                Color.green(colorTrackOff), Color.blue(colorTrackOff)
             )
         }
         paint.color = onColor
@@ -240,18 +218,29 @@ class LabeledSwitch : ToggleableView {
 
             //draws background when switch is turned on
             canvas.drawRect(
-                    outerRadii.toFloat(), 0f,
-                    (width - outerRadii).toFloat(), height.toFloat(), paint
+                outerRadii.toFloat(), 0f,
+                (width - outerRadii).toFloat(), height.toFloat(), paint
             )
         }
 
         //For drawing for turned off state
         alpha =
-                ((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
+            ((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
         alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
         val offColor =
-                Color.argb(alpha, Color.red(colorOff), Color.green(colorOff), Color.blue(colorOff))
+            Color.argb(
+                alpha,
+                Color.red(colorTrackOff),
+                Color.green(colorTrackOff),
+                Color.blue(colorTrackOff)
+            )
         paint.color = offColor
+
+        val strokePaint = Paint().apply {
+            color = colorTrackOff
+            style = Paint.Style.STROKE
+            strokeWidth = 4f
+        }
 
         if (!hasTransparentBackground) {
             //draws left and right part of wedge (when turned off)
@@ -260,125 +249,59 @@ class LabeledSwitch : ToggleableView {
 
             //draws background when switch is turned off
             canvas.drawRect(
-                    outerRadii.toFloat(), (padding / 10).toFloat(),
-                    (width - outerRadii).toFloat(), (height - padding / 10).toFloat(), paint
+                outerRadii.toFloat(), (padding / 10).toFloat(),
+                (width - outerRadii).toFloat(), (height - padding / 10).toFloat(), paint
             )
         } else {
             canvas.drawRoundRect(
-                    outlineFgArc, outerRadii.toFloat(),
-                    outerRadii.toFloat(), strokePaint
+                outlineFgArc, outerRadii.toFloat(),
+                outerRadii.toFloat(), strokePaint
             )
         }
     }
 
-    private fun drawSwitchLabels(canvas: Canvas, paint: Paint) {
-        val maxChar = context.getString(R.string.max_char)
-        val textCenter = paint.measureText(maxChar) / 2
-        if (isOn) {
-            var alpha =
-                    (((width ushr 1) - thumbBounds.centerX()) / ((width ushr 1) - thumbOffCenterX) * 255).toInt()
-            alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
-            val onColor =
-                    Color.argb(alpha, Color.red(colorOn), Color.green(colorOn), Color.blue(colorOn))
-            paint.color = onColor
-            var centerX =
-                    (width - padding - (padding + (padding ushr 1) + (thumbRadii shl 1)) ushr 1).toFloat()
-            canvas.drawText(
-                    labelOff,
-                    padding + (padding ushr 1) + (thumbRadii shl 1) + centerX - paint.measureText(
-                            labelOff
-                    ) / 2,
-                    (height ushr 1) + textCenter,
-                    paint
-            )
-            alpha =
-                    ((thumbBounds.centerX() - (width ushr 1)) / (thumbOnCenterX - (width ushr 1)) * 255).toInt()
-            alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
-            val offColor =
-                    Color.argb(alpha, Color.red(colorOff), Color.green(colorOff), Color.blue(colorOff))
-            paint.color = offColor
-            val maxSize = width - (padding shl 1) - (thumbRadii shl 1)
-            centerX = ((padding ushr 1) + maxSize - padding ushr 1).toFloat()
-            canvas.drawText(
-                    labelOn,
-                    padding + centerX - paint.measureText(labelOn) / 2,
-                    (height ushr 1) + textCenter,
-                    paint
-            )
-        } else {
-            var alpha =
-                    ((thumbBounds.centerX() - (width ushr 1)) / (thumbOnCenterX - (width ushr 1)) * 255).toInt()
-            alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
-            val offColor =
-                    Color.argb(alpha, Color.red(colorOff), Color.green(colorOff), Color.blue(colorOff))
-            paint.color = offColor
-            val maxSize = width - (padding shl 1) - (thumbRadii shl 1)
-            var centerX = ((padding ushr 1) + maxSize - padding ushr 1).toFloat()
-            canvas.drawText(
-                    labelOn,
-                    padding + centerX - paint.measureText(labelOn) / 2,
-                    (height ushr 1) + textCenter,
-                    paint
-            )
-            alpha =
-                    (((width ushr 1) - thumbBounds.centerX()) / ((width ushr 1) - thumbOffCenterX) * 255).toInt()
-            alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
-            val onColor: Int
-            onColor = if (isEnabled) {
-                Color.argb(alpha, Color.red(colorOn), Color.green(colorOn), Color.blue(colorOn))
-            } else {
-                Color.argb(
-                        alpha, Color.red(colorDisabled),
-                        Color.green(colorDisabled), Color.blue(colorDisabled)
-                )
-            }
-            paint.color = onColor
-            centerX =
-                    (width - padding - (padding + (padding ushr 1) + (thumbRadii shl 1)) ushr 1).toFloat()
-            canvas.drawText(
-                    labelOff,
-                    padding + (padding ushr 1) + (thumbRadii shl 1) + centerX - paint.measureText(
-                            labelOff
-                    ) / 2,
-                    (height ushr 1) + textCenter,
-                    paint
-            )
-        }
-    }
-
-    private fun drawSwitchThumb(canvas: Canvas, paint: Paint) {
+    private fun drawThumb(canvas: Canvas, paint: Paint) {
         var alpha =
-                ((thumbBounds.centerX() - thumbOffCenterX) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
+            ((thumbBounds.centerX() - thumbOffCenterX) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
         alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
         val offColor =
-                Color.argb(alpha, Color.red(colorOff), Color.green(colorOff), Color.blue(colorOff))
+            Color.argb(
+                alpha,
+                Color.red(colorThumbOff),
+                Color.green(colorThumbOff),
+                Color.blue(colorThumbOff)
+            )
         paint.color = offColor
         canvas.drawCircle(
-                thumbBounds.centerX(), thumbBounds.centerY(),
-                thumbRadii.toFloat(), paint
+            thumbBounds.centerX(), thumbBounds.centerY(),
+            thumbRadii.toFloat(), paint
         )
         alpha =
-                ((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
+            ((thumbOnCenterX - thumbBounds.centerX()) / (thumbOnCenterX - thumbOffCenterX) * 255).toInt()
         alpha = if (alpha < 0) 0 else alpha.coerceAtMost(255)
-        val onColor: Int
-        onColor = if (isEnabled) {
-            Color.argb(alpha, Color.red(colorOn), Color.green(colorOn), Color.blue(colorOn))
+        val onColor: Int = if (isEnabled) {
+            Color.argb(
+                alpha,
+                Color.red(colorThumbOn),
+                Color.green(colorThumbOn),
+                Color.blue(colorThumbOn)
+            )
         } else {
             Color.argb(
-                    alpha, Color.red(colorDisabled),
-                    Color.green(colorDisabled), Color.blue(colorDisabled)
+                alpha, Color.red(colorThumbOff),
+                Color.green(colorThumbOff), Color.blue(colorThumbOff)
             )
         }
         paint.color = onColor
         canvas.drawCircle(
-                thumbBounds.centerX(), thumbBounds.centerY(),
-                thumbRadii.toFloat(), paint
+            thumbBounds.centerX(), thumbBounds.centerY(),
+            thumbRadii.toFloat(), paint
         )
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val desiredWidth = resources.getDimensionPixelSize(R.dimen.labeled_default_width)
-        val desiredHeight = resources.getDimensionPixelSize(R.dimen.labeled_default_height)
+        val desiredWidth = resources.getDimensionPixelSize(R.dimen.default_width)
+        val desiredHeight = resources.getDimensionPixelSize(R.dimen.default_height)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
@@ -401,27 +324,27 @@ class LabeledSwitch : ToggleableView {
         thumbRadii = (width.coerceAtMost(height) / 2.88f).toInt()
         padding = height - thumbRadii ushr 1
         thumbBounds[(width - padding - thumbRadii).toFloat(), padding.toFloat(), (width - padding).toFloat()] =
-                (height - padding).toFloat()
+            (height - padding).toFloat()
         thumbOnCenterX = thumbBounds.centerX()
         thumbBounds[padding.toFloat(), padding.toFloat(), (padding + thumbRadii).toFloat()] =
-                (height - padding).toFloat()
+            (height - padding).toFloat()
         thumbOffCenterX = thumbBounds.centerX()
         if (isOn) {
             thumbBounds[(width - padding - thumbRadii).toFloat(), padding.toFloat(), (width - padding).toFloat()] =
-                    (height - padding).toFloat()
+                (height - padding).toFloat()
         } else {
             thumbBounds[padding.toFloat(), padding.toFloat(), (padding + thumbRadii).toFloat()] =
-                    (height - padding).toFloat()
+                (height - padding).toFloat()
         }
         leftBgArc[0f, 0f, (outerRadii shl 1).toFloat()] = height.toFloat()
         rightBgArc[(width - (outerRadii shl 1)).toFloat(), 0f, width.toFloat()] = height.toFloat()
         leftFgArc[(padding / 10).toFloat(), (padding / 10).toFloat(), ((outerRadii shl 1) - padding / 10).toFloat()] =
-                (height - padding / 10).toFloat()
+            (height - padding / 10).toFloat()
         rightFgArc[(width - (outerRadii shl 1) + padding / 10).toFloat(), (padding / 10).toFloat(), (width - padding / 10).toFloat()] =
-                (height - padding / 10).toFloat()
+            (height - padding / 10).toFloat()
 
         outlineFgArc[(padding / 10).toFloat(), (padding / 10).toFloat(), (width - padding / 10).toFloat()] =
-                (height - padding / 10).toFloat()
+            (height - padding / 10).toFloat()
     }
 
     /**
@@ -436,7 +359,7 @@ class LabeledSwitch : ToggleableView {
         super.performClick()
         if (isOn) {
             val switchColor =
-                    ValueAnimator.ofFloat((width - padding - thumbRadii).toFloat(), padding.toFloat())
+                ValueAnimator.ofFloat((width - padding - thumbRadii).toFloat(), padding.toFloat())
             switchColor.addUpdateListener { animation: ValueAnimator ->
                 val value = animation.animatedValue as Float
                 thumbBounds[value, thumbBounds.top, value + thumbRadii] = thumbBounds.bottom
@@ -447,7 +370,7 @@ class LabeledSwitch : ToggleableView {
             switchColor.start()
         } else {
             val switchColor =
-                    ValueAnimator.ofFloat(padding.toFloat(), (width - padding - thumbRadii).toFloat())
+                ValueAnimator.ofFloat(padding.toFloat(), (width - padding - thumbRadii).toFloat())
             switchColor.addUpdateListener { animation: ValueAnimator ->
                 val value = animation.animatedValue as Float
                 thumbBounds[value, thumbBounds.top, value + thumbRadii] = thumbBounds.bottom
@@ -479,7 +402,7 @@ class LabeledSwitch : ToggleableView {
                 MotionEvent.ACTION_MOVE -> {
                     if (x - (thumbRadii ushr 1) > padding && x + (thumbRadii ushr 1) < width - padding) {
                         thumbBounds[x - (thumbRadii ushr 1), thumbBounds.top, x + (thumbRadii ushr 1)] =
-                                thumbBounds.bottom
+                            thumbBounds.bottom
                         invalidate()
                     }
                     true
@@ -492,14 +415,14 @@ class LabeledSwitch : ToggleableView {
                     } else {
                         if (x >= width ushr 1) {
                             val switchColor = ValueAnimator.ofFloat(
-                                    if (x > (width - padding - thumbRadii))
-                                        (width - padding - thumbRadii).toFloat()
-                                    else x, (width - padding - thumbRadii).toFloat()
+                                if (x > (width - padding - thumbRadii))
+                                    (width - padding - thumbRadii).toFloat()
+                                else x, (width - padding - thumbRadii).toFloat()
                             )
                             switchColor.addUpdateListener { animation: ValueAnimator ->
                                 val value = animation.animatedValue as Float
                                 thumbBounds[value, thumbBounds.top, value + thumbRadii] =
-                                        thumbBounds.bottom
+                                    thumbBounds.bottom
                                 invalidate()
                             }
                             switchColor.interpolator = AccelerateDecelerateInterpolator()
@@ -508,13 +431,13 @@ class LabeledSwitch : ToggleableView {
                             isOn = true
                         } else {
                             val switchColor = ValueAnimator.ofFloat(
-                                    if (x < padding) padding.toFloat() else x,
-                                    padding.toFloat()
+                                if (x < padding) padding.toFloat() else x,
+                                padding.toFloat()
                             )
                             switchColor.addUpdateListener { animation: ValueAnimator ->
                                 val value = animation.animatedValue as Float
                                 thumbBounds[value, thumbBounds.top, value + thumbRadii] =
-                                        thumbBounds.bottom
+                                    thumbBounds.bottom
                                 invalidate()
                             }
                             switchColor.interpolator = AccelerateDecelerateInterpolator()
@@ -538,112 +461,6 @@ class LabeledSwitch : ToggleableView {
 
     /**
      *
-     * Returns the color value for colorOn.
-     *
-     * @return color value for label and thumb in off state and background in on state.
-     */
-    fun getColorOn(): Int {
-        return colorOn
-    }
-
-    /**
-     *
-     * Changes the on color value of this Switch.
-     *
-     * @param colorOn color value for label and thumb in off state and background in on state.
-     */
-    fun setColorOn(colorOn: Int) {
-        this.colorOn = colorOn
-        invalidate()
-    }
-
-    /**
-     *
-     * Returns the color value for colorOff.
-     *
-     * @return color value for label and thumb in on state and background in off state.
-     */
-    fun getColorOff(): Int {
-        return colorOff
-    }
-
-    /**
-     *
-     * Changes the off color value of this Switch.
-     *
-     * @param colorOff color value for label and thumb in on state and background in off state.
-     */
-    fun setColorOff(colorOff: Int) {
-        this.colorOff = colorOff
-        invalidate()
-    }
-
-    /**
-     *
-     * Returns text label when switch is in on state.
-     *
-     * @return text label when switch is in on state.
-     */
-    fun getLabelOn(): String? {
-        return labelOn
-    }
-
-    /**
-     *
-     * Changes text label when switch is in on state.
-     *
-     * @param labelOn text label when switch is in on state.
-     */
-    fun setLabelOn(labelOn: String) {
-        this.labelOn = labelOn
-        invalidate()
-    }
-
-    /**
-     *
-     * Returns text label when switch is in off state.
-     *
-     * @return text label when switch is in off state.
-     */
-    fun getLabelOff(): String {
-        return labelOff
-    }
-
-    /**
-     *
-     * Changes text label when switch is in off state.
-     *
-     * @param labelOff text label when switch is in off state.
-     */
-    fun setLabelOff(labelOff: String) {
-        this.labelOff = labelOff
-        invalidate()
-    }
-
-    /**
-     *
-     * Returns the typeface for Switch on/off labels.
-     *
-     * @return the typeface for Switch on/off labels..
-     */
-    fun getTypeface(): Typeface? {
-        return typeface
-    }
-
-    /**
-     *
-     * Changes the typeface for Switch on/off labels.
-     *
-     * @param typeface the typeface for Switch on/off labels.
-     */
-    fun setTypeface(typeface: Typeface?) {
-        this.typeface = typeface
-        paint.typeface = typeface
-        invalidate()
-    }
-
-    /**
-     *
      * Changes the boolean state of this Switch.
      *
      * @param on true to turn switch on, false to turn it off.
@@ -652,74 +469,74 @@ class LabeledSwitch : ToggleableView {
         super.setOn(on)
         if (isOn) {
             thumbBounds[(width - padding - thumbRadii).toFloat(), padding.toFloat(), (width - padding).toFloat()] =
-                    (height - padding).toFloat()
+                (height - padding).toFloat()
         } else {
             thumbBounds[padding.toFloat(), padding.toFloat(), (padding + thumbRadii).toFloat()] =
-                    (height - padding).toFloat()
+                (height - padding).toFloat()
         }
         invalidate()
     }
 
     /**
      *
-     * Returns the color value for Switch disabled state.
+     * Returns the color value for colorOn.
      *
-     * @return color value used by background, border and thumb when switch is disabled.
+     * @return color value for thumb in on state.
      */
-    fun getColorDisabled(): Int {
-        return colorDisabled
+    fun getColorThumbOn(): Int {
+        return colorThumbOn
     }
 
     /**
      *
-     * Changes the color value for Switch disabled state.
+     * Changes the on color value of this Switch.
      *
-     * @param colorDisabled color value used by background, border and thumb when switch is disabled.
+     * @param ColorThumbOn color value for thumb in on state.
      */
-    fun setColorDisabled(colorDisabled: Int) {
-        this.colorDisabled = colorDisabled
+    fun setColorThumbOn(colorOn: Int) {
+        this.colorThumbOn = colorOn
         invalidate()
     }
 
     /**
      *
-     * Returns the color value for Switch border.
+     * Returns the color value for track colorTrackDisabled.
      *
-     * @return color value used by Switch border.
+     * @return color value for track in on state and background in off state.
      */
-    fun getColorBorder(): Int {
-        return colorBorder
+    fun getColorTrackOff(): Int {
+        return colorTrackOff
     }
 
     /**
      *
-     * Changes the color value for Switch disabled state.
+     * Returns the color value for colorThumbDisabled.
      *
-     * @param colorBorder color value used by Switch border.
+     * @return color value for thumb in off state and background in off state.
      */
-    fun setColorBorder(colorBorder: Int) {
-        this.colorBorder = colorBorder
+    fun getColorThumbOff(): Int {
+        return colorThumbOff
+    }
+
+    /**
+     *
+     * Changes the off color value of this Switch.
+     *
+     * @param colorOff color value for thumb in off state.
+     */
+    fun setColorThumbOff(colorOff: Int) {
+        this.colorThumbOff = colorOff
         invalidate()
     }
 
     /**
      *
-     * Returns the text size for Switch on/off label.
+     * Changes the off color value of this Switch.
      *
-     * @return text size for Switch on/off label.
+     * @param colorOff color value for label and thumb in on state and background in off state.
      */
-    fun getTextSize(): Int {
-        return textSize
-    }
-
-    /**
-     *
-     * Changes the text size for Switch on/off label.
-     *
-     * @param textSize text size for Switch on/off label.
-     */
-    fun setTextSize(textSize: Int) {
-        this.textSize = (textSize * resources.displayMetrics.scaledDensity).toInt()
+    fun setColorTrackOff(colorOff: Int) {
+        this.colorTrackOff = colorOff
         invalidate()
     }
 }

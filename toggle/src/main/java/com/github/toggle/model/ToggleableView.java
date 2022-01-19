@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Angad Singh
+ * Copyright (C) 2018 Vikesh Dass
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,8 @@ import android.view.ViewDebug;
 import com.github.toggle.interfaces.OnToggledListener;
 
 /**
- * <p>
- * Created by Angad Singh on 24/2/18.
- * </p>
+ * Created by Vikesh Dass.
  */
-
 public class ToggleableView extends View {
     protected int width;
     protected int height;

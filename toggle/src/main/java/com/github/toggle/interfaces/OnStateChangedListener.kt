@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Angad Singh
+ * Copyright (C) 2018 Vikesh Dass
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,9 @@ package com.github.toggle.interfaces
 import android.view.View
 
 /**
- *
- *
- * Created by Angad Singh on 25/2/18.
- *
- *
+ * Created by Vikesh Dass on 25/2/18.
  *
  * Interface definition for a callback to be invoked when state of switch is changed.
- *
  *
  * This is a [event listener](package-summary.html)
  * whose event method is [.onStateChanged].

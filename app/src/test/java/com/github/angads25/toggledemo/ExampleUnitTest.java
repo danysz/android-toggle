@@ -1,8 +1,8 @@
 package com.github.angads25.toggledemo;
 
-import org.junit.Test;
-
 import static junit.framework.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,7 +11,8 @@ import static junit.framework.Assert.assertEquals;
  */
 public class ExampleUnitTest {
 
-    @Test public void additionIsCorrect() {
+    @Test
+    public void additionIsCorrect() {
         assertEquals(4, 2 + 2);
     }
 }

@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.activity_day_night.*
 class DayNightActivity : AppCompatActivity(), OnToggledListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme)
         } else {
             setTheme(R.style.AppTheme)
@@ -43,13 +43,14 @@ class DayNightActivity : AppCompatActivity(), OnToggledListener {
 
         val dayNightSwitch = findViewById<DayNightSwitch>(R.id.switch1)
 
-        dayNightSwitch.isOn = AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES
+        dayNightSwitch.isOn =
+            AppCompatDelegate.getDefaultNightMode() != AppCompatDelegate.MODE_NIGHT_YES
 
         dayNightSwitch.setOnToggledListener(this)
     }
 
     override fun onSwitched(toggleableView: ToggleableView, isOn: Boolean) {
-        if(isOn) {
+        if (isOn) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             rootLayout.setBackgroundColor(Color.WHITE)
 

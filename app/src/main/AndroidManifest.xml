@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 Angad Singh
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,18 +39,18 @@
             android:label="Labeled Switch"
             android:screenOrientation="portrait"
             android:name=".LabeledSwitchActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:label="DayNight Switch"
             android:screenOrientation="portrait"
             android:name=".DayNightActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:label="Test Activity"
             android:name=".TestActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

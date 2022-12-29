@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 Angad Singh
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +14,7 @@
   ~ limitations under the License.
   -->
 
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,8 +26,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch1"
@@ -37,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="14sp"
-            app:on="false"
-            app:colorBorder="@color/colorAccent"/>
+            app:colorBorder="@color/colorAccent"
+            app:on="false" />
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch2"
@@ -46,25 +44,25 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="14sp"
-            app:on="false"
-            app:colorBorder="@color/colorAccent"/>
+            app:colorBorder="@color/colorAccent"
+            app:on="false" />
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:textSize="14sp"
             android:enabled="false"
-            app:on="true"
-            app:colorBorder="@color/colorAccent" />
+            android:textSize="14sp"
+            app:colorBorder="@color/colorAccent"
+            app:on="true" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch4"
@@ -72,11 +70,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="14sp"
-            app:on="false"
-            app:textOn="ON"
-            app:textOff="OFF"
+            app:colorBorder="#00c4a6"
             app:colorOn="#00c4a6"
-            app:colorBorder="#00c4a6"/>
+            app:on="false"
+            app:textOff="OFF"
+            app:textOn="ON" />
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch5"
@@ -84,31 +82,31 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="14sp"
-            app:on="true"
-            app:textOn="ON"
-            app:textOff="OFF"
+            app:colorBorder="#00c4a6"
             app:colorOn="#00c4a6"
-            app:colorBorder="#00c4a6"/>
+            app:on="true"
+            app:textOff="OFF"
+            app:textOn="ON" />
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:textSize="14sp"
             android:enabled="false"
-            app:on="false"
-            app:textOn="ON"
-            app:textOff="OFF"
+            android:textSize="14sp"
+            app:colorBorder="#00c4a6"
             app:colorOn="#00c4a6"
-            app:colorBorder="#00c4a6"/>
+            app:on="false"
+            app:textOff="OFF"
+            app:textOn="ON" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch7"
@@ -116,11 +114,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="12sp"
-            app:on="false"
-            app:textOn="START"
-            app:textOff="STOP"
+            app:colorBorder="#D3D3D3"
             app:colorOn="@color/colorPrimary"
-            app:colorBorder="#D3D3D3"/>
+            app:on="false"
+            app:textOff="STOP"
+            app:textOn="START" />
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch8"
@@ -129,22 +127,96 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="12sp"
-            app:on="true"
-            app:textOn="START"
-            app:textOff="STOP"
+            app:colorBorder="@color/colorPrimary"
             app:colorOn="@color/colorPrimary"
-            app:colorBorder="@color/colorPrimary"/>
+            app:on="true"
+            app:textOff="STOP"
+            app:textOn="START" />
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/switch9"
             android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:textSize="12sp"
             android:enabled="false"
+            android:textSize="12sp"
+            app:colorBorder="@color/colorAccent"
             app:on="true"
-            app:textOn="START"
             app:textOff="STOP"
-            app:colorBorder="@color/colorAccent" />
+            app:textOn="START" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.github.angads25.toggle.widget.LabeledSwitch
+            android:id="@+id/switch10"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="12sp"
+            app:colorBorder="#11111100"
+            app:colorOff="#00c4a6"
+            app:colorOn="@color/colorPrimary"
+            app:colorText="#ffffff"
+            app:colorToggle="#ffffff"
+            app:on="false"
+            app:textOff="stop"
+            app:textOn="start"
+            app:textUpperCase="true" />
+
+        <com.github.angads25.toggle.widget.LabeledSwitch
+            android:id="@+id/switch11"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="12sp"
+            app:colorBorder="#11111100"
+            app:colorOff="#00c4a6"
+            app:colorOn="@color/colorPrimary"
+            app:colorText="#ffffff"
+            app:colorToggle="#ffffff"
+            app:on="true"
+            app:textOff="stop"
+            app:textOn="start"
+            app:textUpperCase="true" />
+
+        <com.github.angads25.toggle.widget.LabeledSwitch
+            android:id="@+id/switch12"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:enabled="false"
+            android:textSize="12sp"
+            app:colorBorder="#11111100"
+            app:colorOff="#00c4a6"
+            app:colorOn="@color/colorPrimary"
+            app:colorText="#ffffff"
+            app:colorToggle="#ffffff"
+            app:on="false"
+            app:textOff="stop"
+            app:textOn="start"
+            app:textUpperCase="true" />
+
+        <com.github.angads25.toggle.widget.LabeledSwitch
+            android:id="@+id/switch13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="12sp"
+            app:colorBorder="#11111100"
+            app:colorOff="#00c4a6"
+            app:colorOn="@color/colorPrimary"
+            app:colorText="#ffffff"
+            app:colorToggle="#ffffff"
+            app:on="false"
+            app:textOff="stop"
+            app:textOn="start"
+            app:textUpperCase="true" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

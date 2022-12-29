@@ -1,22 +1,67 @@
 # Toggle
+
 Android Library for Custom Switches.
 
+### Added feature
+
+1. Added different toggle and text color
+
+- app:colorText="#ffffff"
+- app:colorToggle="#ffffff"
+
+2. Added text modification option
+
+- app:textUpperCase
+- app:textLowerCase
+
+3. Start toggle animation from touched X position or from the toggle position
+
+- setStartAnimationFromTouchPosition (only from code)
+
+4. Outsourced properties
+
+- setDuration (only from code)
+- setInterpolator (only from code)
+
+5. Added option the disable touch during animation
+
+- setInterruptAnimation (only from code)
+
+6. Added Animation listener to track toggle position in percentages
+
+- setOnAnimateListener (only from code)
+
 ### Developed by
+
 [Angad Singh](https://www.github.com/angads25) ([@angads25](https://www.twitter.com/angads25))
 
 ### Benchmark:
+
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) [![Build Status](https://travis-ci.org/Angads25/android-toggle.svg?branch=release)](https://travis-ci.org/Angads25/android-toggle)
 
 ### Mentions:
-[![Download](https://api.bintray.com/packages/angads25/maven/Toggle/images/download.svg)](https://bintray.com/angads25/maven/Toggle/_latestVersion) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.angads25/toggle/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.angads25/toggle)
+
+[![](https://jitpack.io/v/jozsefmezei/android-toggle.svg)](https://jitpack.io/#jozsefmezei/android-toggle)
 
 ### Read all about internal classes and functions in the [wiki](https://github.com/Angads25/android-toggle/wiki).
 
 ### Installation
 
-* Library is also Available in MavenCentral, So just put this in your app dependencies to use it:
+Add it in your root build.gradle at the end of repositories:
+
 ```gradle
-    implementation 'com.github.angads25:toggle:1.1.0'
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+* Put this in your app dependencies:
+
+```gradle
+    implementation 'com.github.jozsefmezei:android-toggle:1.1.1'
 ```
 
 ### Usage
@@ -34,7 +79,8 @@ Android Library for Custom Switches.
             app:colorBorder="@color/colorAccent"/>
     ```
 
-2. To the reference of Switch in your Activity/Fragment class set a Toggle Event Handler to it as below:
+2. To the reference of Switch in your Activity/Fragment class set a Toggle Event Handler to it as
+   below:
 
     ```java
         LabeledSwitch labeledSwitch = findViewById(R.id.switch);
@@ -45,19 +91,21 @@ Android Library for Custom Switches.
             }
         });
     ```
-    That's It. All your switching callbacks would be handled in `onSwitched` method, parameter `isOn` will provide the current state of the switch.
-    
+   That's It. All your switching callbacks would be handled in `onSwitched` method, parameter `isOn`
+   will provide the current state of the switch.
+
 ### Switches Available
 
 * Labeled Switch | Designed by - [Shweta Gupta](https://dribbble.com/shwetagupta)
 
-![Labeled Switch](https://raw.githubusercontent.com/Angads25/android-toggle/release/screenshots/version%201/LabeledSwitch.png)
+![Labeled Switch](https://raw.githubusercontent.com/jozsefmezei/android-toggle/release/screenshots/version%201/LabeledSwitch.png)
 
 * Day Night Switch | Designed by - [Ramakrishna V](https://dribbble.com/RamakrishnaUX)
 
 ![Day Night Switch](https://raw.githubusercontent.com/Angads25/android-toggle/release/screenshots/version%202/DayNightSwitch.gif)
 
 ### License
+
     Copyright (C) 2018 Angad Singh
 
     Licensed under the Apache License, Version 2.0 (the "License");

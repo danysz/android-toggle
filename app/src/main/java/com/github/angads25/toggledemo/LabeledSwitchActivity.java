@@ -19,9 +19,14 @@ package com.github.angads25.toggledemo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
+import android.view.animation.BounceInterpolator;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
+import com.github.angads25.toggle.interfaces.OnAnimateListener;
+import com.github.angads25.toggle.model.ToggleableView;
 import com.github.angads25.toggle.widget.LabeledSwitch;
 
 import java.util.Random;
@@ -33,16 +38,20 @@ public class LabeledSwitchActivity extends AppCompatActivity {
     private volatile boolean stopped = false;
 
     private int[] switches = {
-        R.id.switch1, R.id.switch2,
-        R.id.switch4, R.id.switch5,
-        R.id.switch7, R.id.switch8,
+            R.id.switch1, R.id.switch2,
+            R.id.switch4, R.id.switch5,
+            R.id.switch7, R.id.switch8,
+            R.id.switch9, R.id.switch10,
+            R.id.switch11, R.id.switch12,
+            R.id.switch13
     };
 
     private LabeledSwitch[] labeledSwitches;
 
     private TimerTask[] timerTasks;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_labeled_switch);
 
@@ -67,7 +76,7 @@ public class LabeledSwitchActivity extends AppCompatActivity {
             int delay = (2 + new Random().nextInt(5)) * 1000;
             Handler timerHandler = new Handler();
             timerHandler.postDelayed(() -> {
-                if(!stopped) {
+                if (!stopped) {
                     labeledSwitches[finalI].performClick();
                     timers[finalI].schedule(timerTasks[finalI], 0, 10000);
                 }
@@ -76,13 +85,23 @@ public class LabeledSwitchActivity extends AppCompatActivity {
 
         labeledSwitches[2].setTypeface(openSansBold);
         labeledSwitches[3].setTypeface(openSansBold);
+        labeledSwitches[10].setDuration(5111);
+        labeledSwitches[10].setInterpolator(new BounceInterpolator());
+        labeledSwitches[10].setStartAnimationFromTouchPosition(false);
+        labeledSwitches[10].setInterruptAnimation(false);
+        labeledSwitches[10].setOnAnimateListener(new OnAnimateListener() {
+            @Override
+            public void onAnimate(ToggleableView toggleableView, float position) {
+                Log.d("Actual_position_percent", String.valueOf(position));
+            }
+        });
     }
 
     @Override
     protected void onStop() {
         stopped = true;
         for (int i = 0; i < switches.length; i++) {
-            if(timers[i] != null) {
+            if (timers[i] != null) {
                 timers[i].cancel();
             }
         }

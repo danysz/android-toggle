@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.github.angads25.toggledemo"
         minSdkVersion 14
@@ -23,6 +22,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.github.angads25.toggledemo'
 }
 
 dependencies {
@@ -49,6 +49,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
 }
+
 repositories {
     mavenCentral()
 }
